@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2. óra</title>
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="reveal.js/dist/theme/black.css" />
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+
+    <link rel="stylesheet" href="res/scrollbar.css">
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Title -->
+            <section>
+                <h1 class="r-fit-text">Robotika 2. óra</h1>
+                <h2>2025</h2>
+            </section>
+
+            <!-- Ohm's law #1 -->
+            <section data-auto-animate>
+                <h2>Rövid ⚡ kitérő</h2>
+            </section>
+
+            <!-- Ohm's law #2 -->
+            <section data-auto-animate>
+                <h2>Rövid ⚡ kitérő</h2>
+                <img src="static/ohms_law.jpg" alt="Ohm's law">
+            </section>
+
+            <!-- Ohm's law #3 -->
+            <section data-auto-animate>
+                <h2>Rövid ⚡ kitérő</h2>
+                <p>Ohm törvénye: $R = \frac{U}{I}$</p>
+                <img src="static/ohms_law.jpg" alt="Ohm's law">
+            </section>
+
+            <!-- RGB LED #1 -->
+            <section data-auto-animate data-auto-animate-id="led">
+                <h2>
+                    <span style="color: red;">R</span>
+                    <span style="color: green;">G</span>
+                    <span style="color: blue;">B</span>
+                    led
+                </h2>
+                <img src="static/ca.png" alt="rgb led">
+            </section>
+
+            <!-- RGB LED #2 -->
+            <section data-auto-animate data-auto-animate-id="led">
+                <h2>
+                    <span style="color: red;">R</span>
+                    <span style="color: green;">G</span>
+                    <span style="color: blue;">B</span>
+                    led
+                </h2>
+                <img src="static/rgb-led-wiring.svg" alt="rgb led wiring">
+            </section>
+
+            <!-- Classes #1 -->
+            <section data-auto-animate>
+                <h2>Programozási kitérő</h2>
+                <ul>
+                    <li class="fragment">mi van ha több van ugyanabból a perifériából?</li>
+                    <li data-id="copy" class="fragment">másoljuk le a kódot...</li>
+                </ul>
+            </section>
+
+            <!-- Classes #2 -->
+            <section data-auto-animate>
+                <h2>Programozási kitérő</h2>
+                <ul>
+                    <li>mi van ha több van ugyanabból a perifériából?</li>
+                    <li data-id="copy" style="text-decoration: line-through;">másoljuk le a kódot...</li>
+                </ul>
+            </section>
+
+            <!-- Classes #3 -->
+            <section data-auto-animate>
+                <h2>Programozási kitérő</h2>
+                <ul>
+                    <li>mi van ha több van ugyanabból a perifériából?</li>
+                    <li>csoportosítsuk ki közös részeket</li>
+                </ul>
+            </section>
+
+            <!-- RGB LED #3 -->
+            <section data-auto-animate data-auto-animate-id="led">
+                <h2>rgb_led.h</h2>
+                <pre data-id="code"><code data-trim data-noescape data-line-numbers class="hljs cpp">
+                        #pragma once
+
+                        #include "pwm.h"
+
+                        class RGBLed {
+                        &#9;PWM r;
+                        &#9;PWM g;
+                        &#9;PWM b;
+
+                        &#9;uint freq;
+
+                        &#9;volatile bool inited;
+
+                        public:
+                        &#9;RGBLed(uint _r, uint _g, uint _b, uint _freq);
+
+                        &#9;void init();
+                        &#9;void deinit();
+
+                        &#9;void set_color(float _r, float _g, float _b);
+                        };
+
+                    </code></pre>
+            </section>
+
+            <!-- RGB LED #4 -->
+            <section data-auto-animate data-auto-animate-id="led">
+                <h2>rgb_led.cpp</h2>
+                <pre data-id="code"><code data-trim data-noescape data-line-numbers class="hljs cpp">
+                        #include "rgb_led.h"
+                        #include "utils.h"
+
+                        RGBLed::RGBLed(uint _r, uint _g, uint _b, uint _freq)
+                        &#9;: r(_r), g(_g), b(_b), freq(_freq), inited(false) {}
+
+                        void RGBLed::init() {
+                        &#9;if (inited)
+                        &#9;&#9;return;
+
+                        &#9;inited = true;
+
+                        &#9;r.init();
+                        &#9;g.init();
+                        &#9;b.init();
+
+                        &#9;r.freq(freq);
+                        &#9;g.freq(freq);
+                        &#9;b.freq(freq);
+                        }
+
+                        void RGBLed::deinit() {
+                        &#9;if (!inited)
+                        &#9;&#9;return;
+
+                        &#9;inited = true;
+
+                        &#9;r.deinit();
+                        &#9;g.deinit();
+                        &#9;b.deinit();
+                        }
+
+                        void RGBLed::set_color(float _r, float _g, float _b) {
+                        &#9;if (!inited)
+                        &#9;&#9;return;
+
+                        &#9;_r = clamp(_r, 0.0f, 1.0f);
+                        &#9;_g = clamp(_r, 0.0f, 1.0f);
+                        &#9;_b = clamp(_r, 0.0f, 1.0f);
+
+                        &#9;r.duty(1.0f - _r);
+                        &#9;g.duty(1.0f - _g);
+                        &#9;b.duty(1.0f - _b);
+                        }
+                    </code></pre>
+            </section>
+
+            <!-- Servo #1 -->
+            <section>
+                <h2>Servo</h2>
+                <img src="static/servo-wiring.svg" alt="servo wiring">
+            </section>
+
+            <!-- Servo #2 -->
+            <section>
+                <h2>servo.h</h2>
+                <pre data-id="code"><code data-trim data-noescape data-line-numbers class="hljs cpp">
+                        #pragma once
+
+                        #include "pwm.h"
+
+                        class Servo {
+                        private:
+                        &#9;PWM pwm;
+                        &#9;float min, mid, max;
+
+                        &#9;volatile bool inited;
+
+                        public:
+                        &#9;Servo(uint pin, float _min, float _mid, float _max);
+
+                        &#9;void init();
+                        &#9;void deinit();
+
+                        &#9;void duty(float d);
+
+                        &#9;void deg(float d);
+                        &#9;void rad(float r);
+                        };
+
+                    </code></pre>
+            </section>
+
+            <!-- Servo #3 -->
+            <section>
+                <h2>servo.cpp</h2>
+                <pre data-id="code"><code data-trim data-noescape data-line-numbers class="hljs cpp">
+                        #include "servo.h"
+                        #include "utils.h"
+
+                        #define M_PI 3.1415926535
+
+                        Servo::Servo(uint pin, float _min, float _mid, float _max)
+                        &#9;: pwm(pin), min(_min), mid(_mid), max(_max), inited(false) {}
+
+                        void Servo::init() {
+                        &#9;if (inited)
+                        &#9;&#9;return;
+
+                        &#9;inited = true;
+
+                        &#9;pwm.init();
+                        &#9;pwm.freq(50);
+
+                        &#9;deg(0);
+                        }
+
+                        void Servo::deinit() {
+                        &#9;if (!inited)
+                        &#9;&#9;return;
+
+                        &#9;inited = false;
+
+                        &#9;pwm.deinit();
+                        }
+
+                        void Servo::duty(float d) {
+                        &#9;if (!inited)
+                        &#9;&#9;return;
+
+                        &#9;d = 1 - clamp(d, 0.0f, 1.0f);
+
+                        &#9;float duty;
+                        &#9;if (d &leq; 0.5)
+                        &#9;&#9;duty = min + ((mid - min) * d * 2);
+                        &#9;else
+                        &#9;&#9;duty = mid + ((max - mid) * (d * 2 - 1));
+
+                        &#9;pwm.duty(duty);
+                        }
+
+                        void Servo::deg(float d) {
+                        &#9;d = (d + 90) / 180;
+                        &#9;duty(d);
+                        }
+
+                        void Servo::rad(float r) {
+                        &#9;r = (r + 0.5 * M_PI) / M_PI;
+                        &#9;duty(r);
+                        }
+                    </code></pre>
+            </section>
+
+            <!-- Motorok -->
+            <section>
+                <h2>Motorok</h2>
+                <ul>
+                    <li class="fragment">áram ⇒ forgás
+                        <ul>
+                            <li class="fragment">fun fact: fordítva is működik</li>
+                        </ul>
+                    </li>
+                    <li class="fragment">a forgás iránya az áram irányától függ</li>
+                    <li class="fragment">de hogy adunk neki több áramot mint amit a pico tud?</li>
+                    <li class="fragment">és hogy cseréljük meg a kábeleket menet közben???</li>
+                </ul>
+            </section>
+
+            <!-- H bridge #1 -->
+            <section data-auto-animate>
+                <h2>H bridge</h2>
+
+                <img src="static/h_bridge.svg" alt="H bridge">
+            </section>
+
+            <!-- H bridge #2 -->
+            <section data-auto-animate>
+                <h2>H bridge</h2>
+
+                <img src="static/hbridge-wiring.svg" alt="hbridge wiring">
+            </section>
+
+            <!-- H bridge #3 -->
+            <section data-auto-animate>
+                <h2>H bridge</h2>
+
+                <table>
+                    <thead>
+                        <th>xIN1</th>
+                        <th>xIN2</th>
+                        <th>FUNCTION</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>PWM</td>
+                            <td>0</td>
+                            <td>Forward</td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>PWM</td>
+                            <td>Reverse</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- H bridge #4 -->
+            <section data-auto-animate>
+                <h2>h_bridge.h</h2>
+                <pre data-id="code"><code data-trim data-noescape data-line-numbers class="hljs cpp">
+                        #pragma once
+
+                        #include "pin.h"
+                        #include "pwm.h"
+
+                        class HBridge {
+                        &#9;PWM l1;
+                        &#9;PWM l2;
+
+                        &#9;PWM r1;
+                        &#9;PWM r2;
+
+                        &#9;uint pwm_freq;
+
+                        &#9;float last_l;
+                        &#9;float last_r;
+
+                        &#9;volatile bool inited;
+
+                        public:
+                        &#9;float l_speed;
+                        &#9;float r_speed;
+
+                        &#9;Pin eep;
+                        &#9;Pin ult;
+
+                        &#9;HBridge(uint _l1, uint _l2, uint _r1, uint _r2, uint _eep, uint _ult, uint pwm_freq);
+
+                        &#9;void init();
+                        &#9;void deinit();
+
+                        &#9;void drive(float l, float r);
+                        };
+
+                    </code>
+                </pre>
+            </section>
+
+            <!-- H bridge #5 -->
+            <section data-auto-animate>
+                <h2>h_bridge.cpp</h2>
+                <pre data-id="code"><code data-trim data-noescape data-line-numbers class="hljs cpp">
+                        #include "h_bridge.h"
+                        #include "utils.h"
+
+                        HBridge::HBridge(uint _l1, uint _l2, uint _r1, uint _r2, uint _eep, uint _ult, uint _pwm_freq)
+                        &#9;: l1(_l1),
+                        &#9; l2(_l2),
+                        &#9; r1(_r1),
+                        &#9; r2(_r2),
+                        &#9; pwm_freq(_pwm_freq),
+                        &#9; last_l(0),
+                        &#9; last_r(0),
+                        &#9; inited(false),
+                        &#9; l_speed(0),
+                        &#9; r_speed(0),
+                        &#9; eep(_eep),
+                        &#9; ult(_ult, GPIO_IN, true) {}
+
+                        void HBridge::init() {
+                        &#9;if (inited && eep.get())
+                        &#9;&#9;return;
+
+                        &#9;inited = true;
+
+                        &#9;l1.init();
+                        &#9;l2.init();
+                        &#9;r1.init();
+                        &#9;r2.init();
+                        &#9;eep.init();
+                        &#9;ult.init();
+
+                        &#9;l1.freq(pwm_freq);
+                        &#9;l2.freq(pwm_freq);
+                        &#9;r1.freq(pwm_freq);
+                        &#9;r2.freq(pwm_freq);
+
+                        &#9;drive(last_l, last_r);
+
+                        &#9;eep.set(1);
+                        }
+
+                        void HBridge::deinit() {
+                        &#9;if (!inited)
+                        &#9;&#9;return;
+
+                        &#9;inited = false;
+
+                        &#9;drive(0, 0);
+
+                        &#9;last_l = l_speed;
+                        &#9;last_r = r_speed;
+
+                        &#9;l1.deinit();
+                        &#9;l2.deinit();
+                        &#9;r1.deinit();
+                        &#9;r2.deinit();
+                        &#9;eep.deinit();
+                        &#9;ult.deinit();
+                        }
+
+                        void HBridge::drive(float l, float r) {
+                        &#9;if (!inited)
+                        &#9;&#9;return;
+
+                        &#9;l = clamp(l, -1.0f, 1.0f);
+                        &#9;r = clamp(r, -1.0f, 1.0f);
+
+                        &#9;l1.duty(abs(l) * (l &gt; 0));
+                        &#9;l2.duty(abs(l) * (l &lt; 0));
+
+                        &#9;r1.duty(abs(r) * (r &lt; 0));
+                        &#9;r2.duty(abs(r) * (r &gt; 0));
+
+                        &#9;l_speed = l;
+                        &#9;r_speed = r;
+                        }
+
+                    </code>
+                </pre>
+            </section>
+
+            <!-- Stepup #1 -->
+            <section>
+                <h2>Step up</h2>
+                <ul>
+                    <li>a robot így elég lassú</li>
+                    <li class="fragment">nagyobb feszültség ⇒ gyorsabb forgás
+                    </li>
+                    <li class="fragment">de hogyan csinálhatunk nagyobb feszültséget, mint amit az akkumulátor
+                        kiad?</li>
+                </ul>
+            </section>
+
+            <!-- Stepup #2 -->
+            <section>
+                <h2>Step up</h2>
+                <img src="static/stepup-wiring.svg" alt="stepup wiring">
+            </section>
+
+            <!-- <end> -->
+            <section>
+                <h2 style="font-family: monospace;">&lt;\&gt;</h2>
+            </section>
+        </div>
+    </div>
+
+    <script src="reveal.js/dist/reveal.js"></script>
+    <script src="reveal.js/plugin/highlight/highlight.js"></script>
+    <script src="reveal.js/plugin/markdown/markdown.js"></script>
+    <script src="reveal.js/plugin/search/search.js"></script>
+    <script src="reveal.js/plugin/notes/notes.js"></script>
+    <script src="reveal.js/plugin/math/math.js"></script>
+    <script src="reveal.js/plugin/zoom/zoom.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            preloadIframes: true,
+            slideNumber: 'c/t',
+            plugins: [RevealMarkdown, RevealHighlight, RevealSearch, RevealNotes, RevealMath, RevealZoom],
+        });
+    </script>
+
+</body>
+
+</html>

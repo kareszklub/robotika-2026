@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1. óra</title>
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="reveal.js/dist/theme/black.css" />
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+
+    <link rel="stylesheet" href="res/scrollbar.css">
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Title -->
+            <section>
+                <h1 class="r-fit-text">Robotika 1. óra</h1>
+                <h2>2025</h2>
+            </section>
+
+            <!-- Introductions -->
+            <section>
+                <h2>Bemutatkozás</h2>
+
+                <div style="display: flex;">
+                    <div>
+                        <h3 class="fragment">Kristóf</h3>
+                        <ul>
+                            <li class="fragment">15F (BME mérnökinfó)</li>
+                            <li class="fragment">diákkör alapító</li>
+                            <li class="fragment">low level enjoyer</li>
+                            <li class="fragment">arch btw</li>
+                            <li class="fragment">öreg</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="fragment">Ákos</h3>
+                        <ul>
+                            <li class="fragment">10F</li>
+                            <li class="fragment">diákkör vezető</li>
+                            <li class="fragment">cp head</li>
+                            <li class="fragment">arch felhasználó</li>
+                            <li class="fragment">rust élvező</li>
+                            <li class="fragment">ask me about Uiua (<a href="https://uiua.org">uiua.org</a>)</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Mit fogunk megépíteni? - cél -->
+            <section data-auto-animate>
+
+                <h2 data-id="title">Mit fogunk megépíteni? - cél</h3>
+
+                    <ul>
+                        <li class="fragment" data-id="robot">egy kétkerekű vonal és falkövető robot</li>
+                        <li class="fragment" data-id="assembly">könnyen összeszerelhető</li>
+                        <li class="fragment" data-id="prog">programozható</li>
+                        <li class="fragment" data-id="wireless">vezeték nélküli</li>
+                    </ul>
+
+            </section>
+
+            <!-- Mit fogunk megépíteni? - megvalósítás -->
+            <section data-auto-animate>
+                <h4 data-id="title">Mit fogunk megépíteni? - megvalósítás</h4>
+
+                <ul>
+                    <li data-id="robot">egy kétkerekű vonal és falkövető robot
+                        <ul>
+                            <li>fordulatszám, nyomaték, max sebesség</li>
+                        </ul>
+                    </li>
+
+                    <li data-id="assembly">
+                        könnyen összeszerelhető
+                        <ul>
+                            <li>3D nyomtatott váz
+                                <ul>
+                                    <li>több darabban</li>
+                                </ul>
+                            </li>
+                            <li>breadboard (próbapanel)</li>
+                        </ul>
+                    </li>
+
+                    <li data-id="prog">programozható
+                        <ul>
+                            <li>mikrokontroller (Rasperry Pi Pico 2 W)</li>
+                        </ul>
+                    </li>
+
+                    <li data-id="wireless">vezeték nélküli
+                        <ul>
+                            <li>akkumulátor</li>
+                            <li>wifi (W)</li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </section>
+
+            <!-- Downloads #1 -->
+            <section data-auto-animate>
+                <h2>Downloads</h2>
+
+                <ul>
+                    <li class="fragment">VSCode: <a
+                            href="https://code.visualstudio.com/download">https://code.visualstudio.com/download</a>
+                    </li>
+                    <li class="fragment">Extension: <b>Raspberry Pi Pico</b></a></li>
+                    <li class="fragment">Git: <a
+                            href="https://git-scm.com/downloads/win">https://git-scm.com/downloads/win</a></li>
+                </ul>
+            </section>
+
+            <!-- Hello world #1 -->
+            <section data-auto-animate>
+                <h2 data-id="title">Hello World! 👋</h2>
+
+                <pre><code data-trim class="hljs cpp" data-noescape data-line-numbers>
+                        #include &lt;cstdio&gt;
+                        #include "pico/stdlib.h"
+
+                        int main() {
+                        &#9;stdio_init_all();
+                        &#9;while (true) {
+                        &#9;&#9;printf("Hello, world!\n");
+                        &#9;&#9;sleep_ms(1000);
+                        &#9;}
+                        }
+                    </code></pre>
+            </section>
+
+            <!-- Mikrokontroller alapok #1 -->
+            <section data-auto-animate>
+                <h2>Mikrokontroller alapok</h2>
+                <div>
+                    <div>
+                        <ul>
+                            <li class="fragment">egy processzor (mint rendes számítógépben)</li>
+                            <li class="fragment">IO − pin-ek (tüskék)
+                                <ul>
+                                    <li class="fragment">analóg / digitális (gyakoribb)</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <ul>
+            </section>
+
+            <!-- Mikrokontroller alapok #2 -->
+            <section data-auto-animate>
+                <h2>Mikrokontroller alapok</h2>
+                <div style="display: flex;">
+                    <div>
+                        <ul>
+                            <li>egy processzor (mint rendes számítógépben)</li>
+                            <li>IO − pin-ek (tüskék)
+                                <ul>
+                                    <li>analóg / digitális (gyakoribb)</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div><img src="static/pico2w.png" alt="pico 2 w"></div>
+            </section>
+
+            <!-- Hello world #2 -->
+            <section data-auto-animate>
+                <h2 data-id="title">Hello World! 🤖</h2>
+
+                <pre data-id="code"><code data-trim data-noescape class="hljs cpp" data-line-numbers>
+                        #include "bobot.h"
+
+                        int main() {
+                        &#9;Bobot::init();
+                        &#9;while (true) {
+                        &#9;&#9;Bobot::led.toggle();
+                        &#9;&#9;sleep_ms(500);
+                        &#9;}
+                        }
+                    </code></pre>
+            </section>
+
+            <!-- Breadboard -->
+            <section>
+                <h2>Breadboard</h2>
+                <img src="static/breadboard.png" alt="breadboard">
+            </section>
+
+            <!-- Buzzer #1 -->
+            <section data-auto-animate data-auto-animate-id="buzzer">
+                <h2 data-id="title">Buzzer</h2>
+                <img src="static/buzzer-wiring.svg" alt="buzzer wiring">
+            </section>
+
+            <!-- Buzzer #2 -->
+            <section data-auto-animate data-auto-animate-id="buzzer">
+                <h2 data-id="title">Buzzer</h2>
+                <ul>
+                    <li class="fragment">hang ⇒ frekvencia, hangerő
+                        <ul>
+                            <li class="fragment">folytonos (vs mikrokontroller)</li>
+                        </ul>
+                    </li>
+                    <li class="fragment">folytonos jel "szimulálása"
+                        <ul>
+                            <li class="fragment">ötlet: gyorsan ki be kapcsoljuk (<b>P</b>ulse <b>W</b>idth
+                                <b>M</b>odulation)
+                                <ul>
+                                    <li class="fragment">frekvencia: adódik</li>
+                                    <li class="fragment">hangerő a feszültségtől függ</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- PWM #1 -->
+            <section data-auto-animate data-auto-animate-id="pwm">
+                <h2 data-id="title">PWM</h2>
+                <img src="static/sine.svg" alt="sine">
+            </section>
+
+            <!-- PWM #2 -->
+            <section data-auto-animate data-auto-animate-id="pwm">
+                <h2 data-id="title">PWM</h2>
+                <img src="static/sine.svg" alt="sine">
+                <img src="static/square.svg" alt="square">
+            </section>
+
+            <!-- PWM #3 -->
+            <section data-auto-animate data-auto-animate-id="pwm">
+                <h2 data-id="title">Buzzer</h2>
+                <pre data-id="code"><code data-trim data-noescape data-line-numbers class="hljs cpp">
+                        #include "pico/stdlib.h"
+                        #include "pwm.h"
+
+                        int main() {
+                        &#9;stdio_init_all();
+
+                        &#9;PWM buzzer(2);
+                        &#9;buzzer.duty(0.5);
+                        &#9;buzzer.freq(2000);
+
+                        &#9;sleep_ms(2000);
+
+                        &#9;buzzer.duty(0);
+                        }
+                    </code></pre>
+            </section>
+
+            <section>
+                <h2 style="font-family: monospace;">&lt;\&gt;</h2>
+            </section>
+        </div>
+    </div>
+
+    <script src="reveal.js/dist/reveal.js"></script>
+    <script src="reveal.js/plugin/highlight/highlight.js"></script>
+    <script src="reveal.js/plugin/search/search.js"></script>
+    <script src="reveal.js/plugin/notes/notes.js"></script>
+    <script src="reveal.js/plugin/math/math.js"></script>
+    <script src="reveal.js/plugin/zoom/zoom.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            preloadIframes: true,
+            slideNumber: 'c/t',
+            plugins: [RevealHighlight, RevealSearch, RevealNotes, RevealMath, RevealZoom],
+        });
+    </script>
+</body>
+
+</html>
