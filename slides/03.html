@@ -71,8 +71,9 @@
                 <h2>IRQ handler</h2>
 
                 <pre data-id="code"><code data-trim data-noescape data-line-numbers class="hljs cpp">
-                        add_irq(button.pin, true, []() { toggle(); });
-
+                        GpioIrq::attach(config::BUTTON_PIN, GPIO_IRQ_EDGE_FALL,
+                        &#9;[&amp;count](uint gpio, uint32_t events) { count++; }
+                        );
                     </code></pre>
             </section>
 
@@ -81,7 +82,9 @@
                 <h2>IRQ handler</h2>
 
                 <pre data-id="code"><code data-trim data-noescape data-line-numbers class="hljs cpp">
-                        add_irq(button.pin, true, []() { toggle(); });
+                        GpioIrq::attach(config::BUTTON_PIN, GPIO_IRQ_EDGE_FALL,
+                        &#9;[&amp;count](uint gpio, uint32_t events) { count++; }
+                        );
                     </code></pre>
                 <p>elég zajos, ezt így nem lehet használni...</p>
             </section>
@@ -91,35 +94,30 @@
                 <h2>IRQ handler</h2>
 
                 <pre data-id="code"><code data-trim data-noescape data-line-numbers class="hljs cpp">
-                        add_irq(button.pin, true, []() {
-                        &#9;uint64_t now = time_us_64();
-                        &#9;if (now - last_pause_us &geq; BUTTON_DEBOUNCE_DELAY_US) {
-                        &#9;&#9;last_pause_us = now;
-                        &#9;&#9;toggle();
+
+                        GpioIrq::attach(config::BUTTON_PIN, GPIO_IRQ_EDGE_FALL,
+                        &#9;[&amp;count, &amp;last_press](uint gpio, uint32_t events) {
+                        &#9;&#9;int64_t now = time_us_64();
+                        &#9;&#9;if (now - last_press &geq; 300 * 1000) {
+                        &#9;&#9;&#9;last_press = now;
+                        &#9;&#9;&#9;count++;
+                        &#9;&#9;}
                         &#9;}
-                        });
+                        );
+
                     </code></pre>
                 <p>debouncing ✨</p>
             </section>
 
             <!-- Proxy #1 -->
-            <section data-auto-animate data-auto-animate-id="proxy">
-                <h2>Proximity szenzor</h2>
+            <section data-auto-animate data-auto-animate-id="track">
+                <h2>Track szenzor</h2>
             </section>
 
             <!-- Proxy #2 -->
-            <section data-auto-animate data-auto-animate-id="proxy">
-                <h2>Proximity szenzor</h2>
+            <section data-auto-animate data-auto-animate-id="track">
+                <h2>Track szenzor</h2>
                 <img src="static/proxy-wiring.svg" alt="proxy wiring">
-            </section>
-
-            <!-- Proxy #3 -->
-            <section data-auto-animate data-auto-animate-id="proxy">
-                <h2>Proximity szenzor</h2>
-                <pre data-id="code"><code data-trim data-noescape class="hljs cpp" data-line-numbers>
-                        add_irq(proxy.pin, false, []() { disable(); });
-
-                    </code></pre>
             </section>
 
             <!-- Encoder #1 -->
@@ -161,232 +159,6 @@
             <section data-auto-animate data-auto-animate-id="ultra">
                 <h2>Ultra sensor</h2>
                 <img src="static/ultra-wiring.svg" alt="ultra wiring">
-            </section>
-
-            <!-- Ultra sensor #5 -->
-            <section data-auto-animate data-auto-animate-id="ultra">
-                <h2>Ultra sensor</h2>
-                <h3>ultra_sensor.h</h3>
-
-                <pre data-id="code"><code data-trim data-noescape>
-                        #pragma once
-
-                        #include "config.h"
-                        #include "pin.h"
-                        #include "ring_buffer.h"
-
-                        class UltraSensor {
-
-                        &#9;static constexpr float METERS_PER_US = 0.000175f;
-                        &#9;static constexpr float MIN_DIST = 0.02f;
-                        &#9;static constexpr float MAX_DIST = 4.0f;
-
-                        &#9;volatile uint64_t last_dist;
-
-                        &#9;volatile bool inited;
-
-                        public:
-                        &#9;Pin trig;
-                        &#9;Pin echo;
-
-                        &#9;volatile uint64_t rise;
-                        &#9;volatile uint64_t fall;
-                        &#9;volatile uint64_t last_pulse;
-
-                        &#9;UltraSensor(uint _trig, uint _echo);
-
-                        &#9;void init();
-                        &#9;void deinit();
-
-                        &#9;float distance();
-
-                        &#9;void callback_echo_rise();
-                        &#9;void callback_echo_fall();
-
-                        &#9;void timer_callback_trig_up();
-                        &#9;void timer_callback_trig_down();
-                        };
-
-                    </code></pre>
-            </section>
-
-            <!-- Ultra sensor #6 -->
-            <section data-auto-animate data-auto-animate-id="ultra">
-                <h2>Ultra sensor</h2>
-                <h3>ultra_sensor.cpp</h3>
-
-                <pre data-id="code"><code data-trim data-noescape data-line-numbers class="hljs cpp">
-                        #include "ultra_sensor.h"
-
-                        UltraSensor::UltraSensor(uint _trig, uint _echo)
-                        &#9;: last_dist(0),
-                        &#9; inited(false),
-                        &#9; rolling_dist_sum(0),
-                        &#9; trig(_trig),
-                        &#9; echo(_echo, GPIO_IN),
-                        &#9; rise(0),
-                        &#9; fall(0),
-                        &#9; last_pulse(0) {}
-
-                        void UltraSensor::init() {
-                        &#9;if (inited)
-                        &#9;&#9;return;
-
-                        &#9;inited = true;
-
-                        &#9;trig.init();
-                        &#9;echo.init();
-                        }
-
-                        void UltraSensor::deinit() {
-                        &#9;if (!inited)
-                        &#9;&#9;return;
-
-                        &#9;inited = false;
-
-                        &#9;trig.deinit();
-                        &#9;echo.deinit();
-                        }
-
-                        float UltraSensor::distance() {
-                        &#9;if (!inited)
-                        &#9;&#9;return -1;
-
-                        &#9;float dist;
-                        &#9;if (rise &gt; fall) {
-                        &#9;&#9;dist = last_dist;
-                        &#9;} else {
-                        &#9;&#9;dist = (fall - rise) * METERS_PER_US;
-                        &#9;&#9;last_dist = dist;
-                        &#9;}
-
-                        &#9;if (dist &lt; MIN_DIST || dist &gt; MAX_DIST)
-                        &#9;&#9;return -1;
-
-                        &#9;return dist;
-                        }
-
-                        void UltraSensor::callback_echo_rise() {
-                        &#9;if (!inited)
-                        &#9;&#9;return;
-
-                        &#9;rise = time_us_64();
-                        }
-
-                        void UltraSensor::callback_echo_fall() {
-                        &#9;if (!inited)
-                        &#9;&#9;return;
-
-                        &#9;fall = time_us_64();
-                        }
-
-                        void UltraSensor::timer_callback_trig_up() {
-                        &#9;if (!inited)
-                        &#9;&#9;return;
-
-                        &#9;trig.set(1);
-                        &#9;last_pulse = time_us_64();
-                        }
-
-                        void UltraSensor::timer_callback_trig_down() {
-                        &#9;if (!inited)
-                        &#9;&#9;return;
-
-                        &#9;trig.set(0);
-                        }
-
-                    </code></pre>
-            </section>
-
-            <!-- Ultra sensor #7 -->
-            <section data-auto-animate data-auto-animate-id="ultra">
-                <h2>Ultra sensor</h2>
-                <ul>
-                    <li class="fragment">kissé zajos... ki kéne simítani</li>
-                    <li class="fragment">átlagoljuk</li>
-                    <li class="fragment">de hogyan tároljuk a korábbiakat?</li>
-                </ul>
-            </section>
-
-            <!-- Ultra sensor #8 -->
-            <section data-auto-animate data-auto-animate-id="ultra">
-                <h2>Buffer</h2>
-                <img src="static/buffer.svg" alt="buffer" data-id="buf">
-            </section>
-
-            <!-- Ultra sensor #9 -->
-            <section data-auto-animate data-auto-animate-id="ultra">
-                <h2>Ring buffer</h2>
-                <img src="static/ring-buffer.svg" alt="ring buffer" data-id="buf" width="400" height="400">
-            </section>
-
-            <!-- Ultra sensor #10 -->
-            <section data-auto-animate data-auto-animate-id="ultra">
-                <h2>Ring buffer</h2>
-                <p>Önálló munka: implementáció</p>
-            </section>
-
-            <!-- Ultra sensor #11 -->
-            <section data-auto-animate data-auto-animate-id="ultra">
-                <h2>Ring buffer</h2>
-                <h3>ultra_sensor.h</h3>
-                <pre data-id="code"><code data-trim data-noescape data-line-numbers class="hljs cpp">
-                        struct Datapoint {
-                        &#9;uint64_t t;
-                        &#9;float dist;
-                        };
-
-                        RingBuffer&lt;Datapoint, ULTRA_BUFFER_SIZE&gt; buffer;
-
-                        float rolling_dist_sum;
-
-                    </code></pre>
-
-            </section>
-
-            <!-- Ultra sensor #12 -->
-            <section data-auto-animate data-auto-animate-id="ultra">
-                <h2>Ring buffer</h2>
-                <h3>ultra_sensor.cpp</h3>
-                <pre data-id="code"><code data-trim data-noescape data-line-numbers="16-17|21-35" class="hljs cpp">
-                        float UltraSensor::distance() {
-                        &#9;if (!inited)
-                        &#9;&#9;return -1;
-
-                        &#9;float dist;
-                        &#9;if (rise &gt; fall) {
-                        &#9;&#9;dist = last_dist;
-                        &#9;} else {
-                        &#9;&#9;dist = (fall - rise) * METERS_PER_US;
-                        &#9;&#9;last_dist = dist;
-                        &#9;}
-
-                        &#9;if (dist &lt; MIN_DIST || dist &gt; MAX_DIST)
-                        &#9;&#9;return -1;
-
-                        &#9;rolling_dist_sum += dist;
-                        &#9;buffer.push_back({ time_us_64(), dist });
-                        &#9;return dist;
-                        }
-
-                        float UltraSensor::distance_smooth() {
-                        &#9;distance();
-
-                        &#9;uint64_t now = time_us_64();
-                        &#9;while (!buffer.empty() && buffer.front().t + ULTRA_BUFFER_TIME_WINDOW_US &lt; now) {
-                        &#9;&#9;rolling_dist_sum -= buffer.front().dist;
-                        &#9;&#9;buffer.pop_front();
-                        &#9;}
-
-                        &#9;if (buffer.empty()) {
-                        &#9;&#9;return -1.0;
-                        &#9;} else {
-                        &#9;&#9;return rolling_dist_sum / buffer.size();
-                        &#9;}
-                        }
-
-
-                    </code></pre>
             </section>
 
             <!-- <end> -->
