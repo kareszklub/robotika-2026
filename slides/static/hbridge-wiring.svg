@@ -3801,17 +3801,9 @@
   <line stroke="#ad6a38" stroke-linecap="round" stroke-width="3.2" x1="104.52" x2="104.52" y1="100.8" y2="57.6"/>
   <line stroke="#ef6100" stroke-linecap="round" stroke-width="1.6" x1="104.52" x2="104.52" y1="100.8" y2="57.6"/>
  </g>
- <g partID="87040">
-  <line stroke="#00a527" stroke-linecap="round" stroke-width="3.2" x1="147.72" x2="183.72" y1="108.164" y2="108.164"/>
-  <line stroke="#25cc35" stroke-linecap="round" stroke-width="1.6" x1="147.72" x2="183.72" y1="108.164" y2="108.164"/>
- </g>
  <g partID="86970">
-  <line stroke="#00a527" stroke-linecap="round" stroke-width="3.2" x1="183.72" x2="183.72" y1="108.164" y2="93.5996"/>
-  <line stroke="#25cc35" stroke-linecap="round" stroke-width="1.6" x1="183.72" x2="183.72" y1="108.164" y2="93.5996"/>
- </g>
- <g partID="86740">
-  <line stroke="#00a527" stroke-linecap="round" stroke-width="3.2" x1="147.72" x2="147.72" y1="100.8" y2="108.164"/>
-  <line stroke="#25cc35" stroke-linecap="round" stroke-width="1.6" x1="147.72" x2="147.72" y1="100.8" y2="108.164"/>
+  <line stroke="#00a527" stroke-linecap="round" stroke-width="3.2" x1="172" x2="183.72" y1="144" y2="93.5996"/>
+  <line stroke="#25cc35" stroke-linecap="round" stroke-width="1.6" x1="172" x2="183.72" y1="144" y2="93.5996"/>
  </g>
  <g partID="88950">
   <line stroke="#8c0000" stroke-linecap="round" stroke-width="3.2" x1="212.52" x2="220" y1="172.904" y2="172.904"/>
@@ -3842,35 +3834,23 @@
   <line stroke="#cc1414" stroke-linecap="round" stroke-width="1.6" x1="148" x2="148" y1="165.404" y2="194.4"/>
  </g>
  <g partID="89160">
-  <line stroke="#8c0000" stroke-linecap="round" stroke-width="3.2" x1="198.12" x2="148" y1="165.404" y2="165.404"/>
-  <line stroke="#cc1414" stroke-linecap="round" stroke-width="1.6" x1="198.12" x2="148" y1="165.404" y2="165.404"/>
+  <line stroke="#8c0000" stroke-linecap="round" stroke-width="3.2" x1="190.92" x2="148" y1="165.404" y2="165.404"/>
+  <line stroke="#cc1414" stroke-linecap="round" stroke-width="1.6" x1="190.92" x2="148" y1="165.404" y2="165.404"/>
  </g>
  <g partID="88720">
-  <line stroke="#8c0000" stroke-linecap="round" stroke-width="3.2" x1="198.12" x2="198.12" y1="93.6" y2="165.404"/>
-  <line stroke="#cc1414" stroke-linecap="round" stroke-width="1.6" x1="198.12" x2="198.12" y1="93.6" y2="165.404"/>
+  <line stroke="#8c0000" stroke-linecap="round" stroke-width="3.2" x1="190.92" x2="190.92" y1="93.5996" y2="165.404"/>
+  <line stroke="#cc1414" stroke-linecap="round" stroke-width="1.6" x1="190.92" x2="190.92" y1="93.5996" y2="165.404"/>
  </g>
  <g partID="89370">
   <line stroke="#999999" stroke-linecap="round" stroke-width="3.2" x1="107" x2="107" y1="158.298" y2="194.4"/>
   <line stroke="#ffffff" stroke-linecap="round" stroke-width="1.6" x1="107" x2="107" y1="158.298" y2="194.4"/>
  </g>
  <g partID="89300">
-  <line stroke="#999999" stroke-linecap="round" stroke-width="3.2" x1="190.92" x2="107" y1="158.298" y2="158.298"/>
-  <line stroke="#ffffff" stroke-linecap="round" stroke-width="1.6" x1="190.92" x2="107" y1="158.298" y2="158.298"/>
+  <line stroke="#999999" stroke-linecap="round" stroke-width="3.2" x1="198.12" x2="107" y1="158.298" y2="158.298"/>
+  <line stroke="#ffffff" stroke-linecap="round" stroke-width="1.6" x1="198.12" x2="107" y1="158.298" y2="158.298"/>
  </g>
  <g partID="88790">
-  <line stroke="#999999" stroke-linecap="round" stroke-width="3.2" x1="190.92" x2="190.92" y1="93.6" y2="158.299"/>
-  <line stroke="#ffffff" stroke-linecap="round" stroke-width="1.6" x1="190.92" x2="190.92" y1="93.6" y2="158.299"/>
- </g>
- <g partID="89580">
-  <line stroke="#d6d63a" stroke-linecap="round" stroke-width="3.2" x1="140.52" x2="219.72" y1="115.27" y2="115.27"/>
-  <line stroke="#fff800" stroke-linecap="round" stroke-width="1.6" x1="140.52" x2="219.72" y1="115.27" y2="115.27"/>
- </g>
- <g partID="89510">
-  <line stroke="#d6d63a" stroke-linecap="round" stroke-width="3.2" x1="219.72" x2="219.72" y1="115.27" y2="93.5996"/>
-  <line stroke="#fff800" stroke-linecap="round" stroke-width="1.6" x1="219.72" x2="219.72" y1="115.27" y2="93.5996"/>
- </g>
- <g partID="89440">
-  <line stroke="#d6d63a" stroke-linecap="round" stroke-width="3.2" x1="140.52" x2="140.52" y1="100.8" y2="115.27"/>
-  <line stroke="#fff800" stroke-linecap="round" stroke-width="1.6" x1="140.52" x2="140.52" y1="100.8" y2="115.27"/>
+  <line stroke="#999999" stroke-linecap="round" stroke-width="3.2" x1="198.12" x2="198.12" y1="93.5996" y2="158.298"/>
+  <line stroke="#ffffff" stroke-linecap="round" stroke-width="1.6" x1="198.12" x2="198.12" y1="93.5996" y2="158.298"/>
  </g>
 </svg>
