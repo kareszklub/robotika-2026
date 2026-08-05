@@ -5546,16 +5546,16 @@
    </g>
   </g>
  </g>
- <path d="M129.36,21.6L118.68,21.6L90.12,21.6L90.12,79.1988" fill="none" opacity="1" stroke="#ef6100" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8344"/>
- <circle cx="118.68" cy="21.6" fill="#af2100" r="1.4172" stroke="none" stroke-width="0"/>
- <circle cx="90.12" cy="21.6" fill="#af2100" r="1.4172" stroke="none" stroke-width="0"/>
- <path d="M90.12,75.1988L90.12,79.1988" fill="none" opacity="1" stroke="#8c8c8c" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8344"/>
- <path d="M90.12,75.1988L90.12,79.1988" fill="none" opacity="0.2" stroke="#00ff00" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8344"/>
  <path d="M129.36,18L114.16,18L85.6,18L85.6,57.5988" fill="none" opacity="1" stroke="#cc1414" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8344"/>
  <circle cx="114.16" cy="18" fill="#8c0000" r="1.4172" stroke="none" stroke-width="0"/>
  <circle cx="85.6" cy="18" fill="#8c0000" r="1.4172" stroke="none" stroke-width="0"/>
  <path d="M85.6,53.5988L85.6,57.5988" fill="none" opacity="1" stroke="#8c8c8c" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8344"/>
  <path d="M85.6,53.5988L85.6,57.5988" fill="none" opacity="0.2" stroke="#00ff00" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8344"/>
+ <path d="M129.36,21.6L118.68,21.6L104.52,21.6L104.52,79.1988" fill="none" opacity="1" stroke="#ef6100" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8344"/>
+ <circle cx="118.68" cy="21.6" fill="#af2100" r="1.4172" stroke="none" stroke-width="0"/>
+ <circle cx="104.52" cy="21.6" fill="#af2100" r="1.4172" stroke="none" stroke-width="0"/>
+ <path d="M104.52,75.1988L104.52,79.1988" fill="none" opacity="1" stroke="#8c8c8c" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8344"/>
+ <path d="M104.52,75.1988L104.52,79.1988" fill="none" opacity="0.2" stroke="#00ff00" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8344"/>
  <path d="M129.36,14.4L78.4,14.4L78.4,50.3988" fill="none" opacity="1" stroke="#8c3b00" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8344"/>
  <circle cx="78.4" cy="14.4" fill="#4c0000" r="1.4172" stroke="none" stroke-width="0"/>
  <path d="M78.4,46.3988L78.4,50.3988" fill="none" opacity="1" stroke="#8c8c8c" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8344"/>

@@ -3583,9 +3583,13 @@
  <path d="M96.8393,67.6584L96.8393,75.9024" fill="none" opacity="1" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.99599"/>
  <path d="M96.8393,71.9024L96.8393,75.9024" fill="none" opacity="1" stroke="#8c8c8c" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.99599"/>
  <path d="M96.8393,71.9024L96.8393,75.9024" fill="none" opacity="0.2" stroke="#00ff00" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.99599"/>
+ <g partID="855139550">
+  <line stroke="#8c0000" stroke-linecap="round" stroke-width="3.2" x1="90.12" x2="90.12" y1="75.9024" y2="119.088"/>
+  <line stroke="#cc1414" stroke-linecap="round" stroke-width="1.6" x1="90.12" x2="90.12" y1="75.9024" y2="119.088"/>
+ </g>
  <g partID="90260">
-  <line stroke="#8c0000" stroke-linecap="round" stroke-width="3.2" x1="104.071" x2="104.52" y1="75.9024" y2="119.088"/>
-  <line stroke="#cc1414" stroke-linecap="round" stroke-width="1.6" x1="104.071" x2="104.52" y1="75.9024" y2="119.088"/>
+  <line stroke="#8c0000" stroke-linecap="round" stroke-width="3.2" x1="104.071" x2="90.12" y1="75.9024" y2="75.9024"/>
+  <line stroke="#cc1414" stroke-linecap="round" stroke-width="1.6" x1="104.071" x2="90.12" y1="75.9024" y2="75.9024"/>
  </g>
  <g partID="90400">
   <line stroke="#000000" stroke-linecap="round" stroke-width="3.2" x1="96.8393" x2="97.32" y1="75.9024" y2="119.088"/>
